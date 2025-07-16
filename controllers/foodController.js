@@ -13,4 +13,4 @@ const getAllFoods = async (req, res) => {
     }
 };
 
-module.exports = { getAllFoods };
+module.exports = getAllFoods;

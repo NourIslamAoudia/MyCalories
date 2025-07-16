@@ -8,4 +8,6 @@ router.post('/register', authController.register);
 // Route pour la connexion
 router.post('/login', authController.login);
 
+router.get('/getall', authController.getAllUsers); // Optionnel, pour récupérer tous les utilisateurs
+
 module.exports = router;
