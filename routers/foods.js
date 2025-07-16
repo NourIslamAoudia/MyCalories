@@ -4,6 +4,6 @@ const router = express.Router();
 const foodController= require('../controllers/foodController');
 
 // Route pour l'inscription
-router.get('/getall', foodController.getAllFoods);
+router.get('/getfood', foodController.getFood);
 
 module.exports = router;
