@@ -12,7 +12,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middlewares
-app.use(cors({ origin: '*' }));
+// Autoriser UNIQUEMENT le frontend déployé sur Vercel
+app.use(cors({
+  origin: 'https://front-my-calories.vercel.app',
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes
