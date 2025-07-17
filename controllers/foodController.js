@@ -1,20 +1,30 @@
 const Food = require('../models/FoodModel');
 
-// Récupérer tous les aliments ou un aliment spécifique par son nom
-const getFood = async (req, res) => {
+// Récupérer tous les aliments avec toutes les infos, avec pagination
+const getAllFoods = async (req, res) => {
     try {
-        const { name } = req.query;
+        const { page = 1, limit = 80 } = req.query;
+        const skip = (parseInt(page) - 1) * parseInt(limit);
 
-        // Si un nom est fourni, on filtre par ce nom
-        const foods = name
-            ? await Food.find({ name: new RegExp(name, 'i') }).lean() // recherche insensible à la casse
-            : await Food.find().lean(); // tous les aliments
+        const foods = await Food
+            .find({})
+            .skip(skip)
+            .limit(parseInt(limit))
+            .lean(); // lean() pour améliorer les performances
 
-        res.status(200).json(foods);
+        const total = await Food.countDocuments();
+
+        res.status(200).json({
+            data: foods,
+            page: parseInt(page),
+            limit: parseInt(limit),
+            total,
+            totalPages: Math.ceil(total / limit)
+        });
     } catch (err) {
-        console.error('Erreur lors de la récupération des aliments:', err.message);
+        console.error('Erreur lors de la récupération des aliments:', err);
         res.status(500).json({ message: 'Erreur serveur lors de la récupération des aliments' });
     }
 };
 
-module.exports = { getFood };
+module.exports = { getAllFoods };

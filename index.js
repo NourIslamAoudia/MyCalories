@@ -20,7 +20,7 @@ connectDB().catch(err => {
 
 // Middlewares
 app.use(cors({
-  origin: 'https://ton-frontend.vercel.app', // Remplace par l’URL exacte de ton frontend Vercel
+  origin: 'https://front-my-calories.vercel.app', // Remplace par l’URL exacte de ton frontend Vercel
   credentials: true
 }));
 
