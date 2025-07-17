@@ -8,6 +8,7 @@ const ProtectRoute = require('./middleware/auth-middleware');
 const authRouter = require('./routers/auth');
 const foodsRouter = require('./routers/foods');
 const mealsRouter = require('./routers/meals');
+const profilRouter = require('./routers/profil');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use('/auth', authRouter);
 app.use('/foods', foodsRouter);
 app.use('/meals', ProtectRoute, mealsRouter);
+app.use('/profil', ProtectRoute, profilRouter);
 
 // Route racine
 app.get('/', (req, res) => {

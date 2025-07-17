@@ -31,8 +31,7 @@ const ProtectRoute = async (req, res, next) => {
         // 4. Ajout des informations utilisateur à la requête
         req.user = {
             id: user._id,
-            username: user.username,
-            
+            username: user.username
         };
 
         // 5. Passer au middleware suivant
