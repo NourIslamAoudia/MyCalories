@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-require('./lib/db'); // Importez simplement le fichier pour lancer la connexion
+
+const connectDB = require('./lib/db');
 const ProtectRoute = require('./middleware/auth-middleware');
 
 const authRouter = require('./routers/auth');
@@ -11,14 +12,23 @@ const mealsRouter = require('./routers/meals');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Connexion à la base de données
+connectDB().catch(err => {
+  console.error('❌ Échec de connexion à la base de données:', err);
+  process.exit(1);
+});
+
 // Middlewares
-// Autoriser UNIQUEMENT le frontend déployé sur Vercel
-app.use(cors());
+app.use(cors({
+  origin: 'https://ton-frontend.vercel.app', // Remplace par l’URL exacte de ton frontend Vercel
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Routes
 app.use('/auth', authRouter);
-app.use('/foods',foodsRouter);
+app.use('/foods', foodsRouter);
 app.use('/meals', ProtectRoute, mealsRouter);
 
 // Route racine
@@ -31,7 +41,7 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route non trouvée' });
 });
 
-// Démarrage du serveur
+// Lancement du serveur
 app.listen(PORT, () => {
-  console.log(`Serveur démarré sur le port ${PORT}`);
+  console.log(`🚀 Serveur démarré sur le port ${PORT}`);
 });
