@@ -644,7 +644,7 @@ const healthyFoods = [
     caloriesPer100g: 347,
     proteinPer100g: 24,
     carbsPer100g: 63,
-    fatPer100g: 1.2,
+    fatPer100g: 1.3,
     photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Mung_beans.jpg/800px-Mung_beans.jpg'
   },
 
