@@ -48,7 +48,7 @@ const healthyFoods = [
     proteinPer100g: 0.9,
     carbsPer100g: 12,
     fatPer100g: 0.1,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Oranges_-_whole_and_split.jpg/800px-Oranges_-_whole_and_split.jpg'
+    photoUrl: 'https://www.fervalle.com/wp-content/uploads/2022/07/transparent-orange-apple5eacfeae85ac29.7815306015883956945475.png'
   },
   {
     name: 'Avocado',
@@ -57,7 +57,7 @@ const healthyFoods = [
     proteinPer100g: 2,
     carbsPer100g: 9,
     fatPer100g: 15,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Avocado_Hass_from_Mexico.jpg/800px-Avocado_Hass_from_Mexico.jpg'
+    photoUrl: 'https://cdn.britannica.com/72/170772-050-D52BF8C2/Avocado-fruits.jpg'
   },
   {
     name: 'Grapes',
@@ -66,7 +66,7 @@ const healthyFoods = [
     proteinPer100g: 0.6,
     carbsPer100g: 18,
     fatPer100g: 0.2,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Table_grapes_on_branch.jpg/800px-Table_grapes_on_branch.jpg'
+    photoUrl: 'https://farmfreshfundraising.com/wp-content/uploads/2017/10/271156-grapes.jpg'
   },
   {
     name: 'Mango',
@@ -75,7 +75,7 @@ const healthyFoods = [
     proteinPer100g: 0.8,
     carbsPer100g: 15,
     fatPer100g: 0.4,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Mango_Zespri.jpg/800px-Mango_Zespri.jpg'
+    photoUrl: 'https://exoticfruitbox.com/wp-content/uploads/2015/10/mango.jpg'
   },
   {
     name: 'Pineapple',
@@ -84,7 +84,7 @@ const healthyFoods = [
     proteinPer100g: 0.5,
     carbsPer100g: 13,
     fatPer100g: 0.1,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Pineapple_and_cross_section.jpg/800px-Pineapple_and_cross_section.jpg'
+    photoUrl: 'https://www.producemarketguide.com/media/user_RZKVrm5KkV/701/pineapple_commodity-page.png'
   },
   {
     name: 'Kiwi',
@@ -93,7 +93,7 @@ const healthyFoods = [
     proteinPer100g: 1.1,
     carbsPer100g: 15,
     fatPer100g: 0.5,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Kiwi_aka_Chinese_gooseberry.jpg/800px-Kiwi_aka_Chinese_gooseberry.jpg'
+    photoUrl: 'https://cdn.britannica.com/45/126445-050-4C0FA9F6/Kiwi-fruit.jpg'
   },
 
   // --- Vegetables (10 items) ---
@@ -104,7 +104,7 @@ const healthyFoods = [
     proteinPer100g: 2.9,
     carbsPer100g: 4.4,
     fatPer100g: 1.5,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4f/Kale-Bundle.jpg'
+    photoUrl: 'https://www.veggycation.com.au/siteassets/veggycationvegetable/kale.jpg'
   },
   {
     name: 'Sweet Potato',
@@ -113,7 +113,7 @@ const healthyFoods = [
     proteinPer100g: 1.6,
     carbsPer100g: 20,
     fatPer100g: 0.1,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Sweet_potatoes.jpg'
+    photoUrl: 'https://japanesetaste.in/cdn/shop/articles/how-to-make-yaki-imo-baked-japanese-sweet-potato-japanese-taste.jpg?v=1737982163&width=5760.jpg'
   },
   {
     name: 'Broccoli',
@@ -131,7 +131,7 @@ const healthyFoods = [
     proteinPer100g: 2.9,
     carbsPer100g: 3.6,
     fatPer100g: 0.4,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Spinacia_oleracea_Spinazie_bloeiend.jpg'
+    photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_StkzMBYOPsjPSDqqQ4SNteGH0LViwPpUeg&s/jpg'
   },
   {
     name: 'Carrot',
@@ -140,7 +140,7 @@ const healthyFoods = [
     proteinPer100g: 0.9,
     carbsPer100g: 9.6,
     fatPer100g: 0.2,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Carrots_from_Marokko.JPG/800px-Carrots_from_Marokko.JPG'
+    photoUrl: 'https://www.lovefoodhatewaste.com/sites/default/files/styles/open_graph_image/public/2022-06/Carrots.jpg.webp?itok=aBgglla9.jpg'
   },
   {
     name: 'Bell Pepper (Red)',
@@ -149,7 +149,7 @@ const healthyFoods = [
     proteinPer100g: 1,
     carbsPer100g: 6,
     fatPer100g: 0.3,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Bell_Pepper_%28Red%29.jpg/800px-Bell_Pepper_%28Red%29.jpg'
+    photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxWdlKgytO_diyJkMxhaphD_xcJmLzNwhjGg&s.jpg'
   },
   {
     name: 'Cucumber',
@@ -158,7 +158,7 @@ const healthyFoods = [
     proteinPer100g: 0.7,
     carbsPer100g: 3.6,
     fatPer100g: 0.1,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Cucumber_macro_01.jpg/800px-Cucumber_macro_01.jpg'
+    photoUrl: 'https://www.lovefoodhatewaste.com/sites/default/files/styles/16_9_two_column/public/2022-07/Cucumber.jpg.webp?itok=ijvKaGKr.jpg'
   },
   {
     name: 'Tomato',
@@ -176,7 +176,7 @@ const healthyFoods = [
     proteinPer100g: 1.2,
     carbsPer100g: 3.1,
     fatPer100g: 0.3,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Courgette_or_zucchini.jpg/800px-Courgette_or_zucchini.jpg'
+    photoUrl: 'https://chefsmandala.com/wp-content/uploads/2018/03/Squash-Zucchini.jpg'
   },
   {
     name: 'Asparagus',
@@ -185,7 +185,7 @@ const healthyFoods = [
     proteinPer100g: 2.2,
     carbsPer100g: 3.9,
     fatPer100g: 0.2,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Asparagus-White-Green.JPG/800px-Asparagus-White-Green.JPG'
+    photoUrl: 'https://themom100.com/wp-content/uploads/2024/04/how-to-make-roasted-asparagus-355b.jpg'
   },
 
   // --- Proteins (10 items) ---
