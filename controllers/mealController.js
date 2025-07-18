@@ -1,0 +1,117 @@
+// controllers/mealController.js
+const Meal = require('../models/mealModel');
+
+/**
+ * Add a food item to a meal
+ * POST /meals/:mealId/items
+ * body: { food: ObjectId, amount: Number }
+ */
+exports.addFoodToMeal = async (req, res, next) => {
+  try {
+    const { mealId } = req.params;
+    const { food, amount } = req.body;
+    const meal = await Meal.findById(mealId).populate('items.food');
+    if (!meal) return res.status(404).json({ message: 'Meal not found' });
+
+    meal.items.push({ food, amount });
+    // populate newly added item
+    await meal.populate('items.food');
+    // recalc calories
+    meal.calculateTotalCaloriesFromItems();
+    await meal.save();
+
+    res.status(201).json(meal);
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Update a food item in a meal
+ * PUT /meals/:mealId/items/:itemId
+ * body: { amount: Number }
+ */
+exports.updateFoodInMeal = async (req, res, next) => {
+  try {
+    const { mealId, itemId } = req.params;
+    const { amount } = req.body;
+    const meal = await Meal.findById(mealId).populate('items.food');
+    if (!meal) return res.status(404).json({ message: 'Meal not found' });
+
+    const item = meal.items.id(itemId);
+    if (!item) return res.status(404).json({ message: 'Item not found' });
+
+    item.amount = amount;
+    // recalc calories
+    meal.calculateTotalCaloriesFromItems();
+    await meal.save();
+
+    res.json(meal);
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Delete a food item from a meal
+ * DELETE /meals/:mealId/items/:itemId
+ */
+exports.deleteFoodFromMeal = async (req, res, next) => {
+  try {
+    const { mealId, itemId } = req.params;
+    const meal = await Meal.findById(mealId).populate('items.food');
+    if (!meal) return res.status(404).json({ message: 'Meal not found' });
+
+    const item = meal.items.id(itemId);
+    if (!item) return res.status(404).json({ message: 'Item not found' });
+
+    item.remove();
+    // recalc calories
+    meal.calculateTotalCaloriesFromItems();
+    await meal.save();
+
+    res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Get meals per day for a user
+ * GET /meals/per-day?date=YYYY-MM-DD
+ */
+exports.getMealsPerDay = async (req, res, next) => {
+  try {
+    const userId = req.user._id; // assume auth middleware
+    const { date } = req.query;
+    const day = date ? new Date(date) : new Date();
+    const start = new Date(day.setHours(0,0,0,0));
+    const end = new Date(day.setHours(23,59,59,999));
+
+    const meals = await Meal.find({
+      user: userId,
+      date: { $gte: start, $lte: end }
+    }).populate('items.food');
+
+    res.json(meals);
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+/**
+ * Get all food items in a meal
+ * GET /meals/:mealId/items
+ */
+exports.getFoodsInMeal = async (req, res, next) => {
+  try {
+    const { mealId } = req.params;
+    const meal = await Meal.findById(mealId).populate('items.food');
+    if (!meal) return res.status(404).json({ message: 'Meal not found' });
+
+    res.json(meal.items); // returns array of { _id, food, amount }
+  } catch (err) {
+    next(err);
+  }
+};

@@ -12,7 +12,7 @@ const healthyFoods = [
     proteinPer100g: 0.3,
     carbsPer100g: 14,
     fatPer100g: 0.2,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg'
+    photoUrl: 'https://organicmandya.com/cdn/shop/files/Apples_bf998dd2-0ee8-4880-9726-0723c6fbcff3.jpg?v=1721368465&width=1000.jpg'
   },
   {
     name: 'Blueberries',
@@ -21,7 +21,7 @@ const healthyFoods = [
     proteinPer100g: 0.7,
     carbsPer100g: 14,
     fatPer100g: 0.3,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Blueberries.jpg'
+    photoUrl: 'https://foodmarble.com/more/wp-content/uploads/2021/09/joanna-kosinska-4qujjbj3srs-unsplash-scaled.jpg'
   },
   {
     name: 'Banana',
@@ -30,7 +30,7 @@ const healthyFoods = [
     proteinPer100g: 1.1,
     carbsPer100g: 23,
     fatPer100g: 0.3,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg'
+    photoUrl: 'https://images.stockcake.com/public/a/d/0/ad0a90cf-519e-4dc9-81d7-44268609ed3a_large/ripe-banana-peeled-stockcake.jpg'
   },
   {
     name: 'Strawberries',
@@ -39,7 +39,7 @@ const healthyFoods = [
     proteinPer100g: 0.7,
     carbsPer100g: 8,
     fatPer100g: 0.3,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/29/PerfectStrawberry.jpg'
+    photoUrl: 'https://cdn11.bigcommerce.com/s-kc25pb94dz/images/stencil/1280w/products/255/721/Strawberries__57434.1657116605.jpg'
   },
   {
     name: 'Orange',
