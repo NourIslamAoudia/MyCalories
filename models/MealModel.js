@@ -1,3 +1,4 @@
+//models/MealModel.js
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
@@ -87,3 +88,4 @@ mealSchema.methods.calculateTotalCaloriesFromItems = function () {
 
 const Meal = mongoose.model('Meal', mealSchema);
 module.exports = Meal;
+

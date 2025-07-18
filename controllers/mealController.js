@@ -1,5 +1,5 @@
 // controllers/mealController.js
-const Meal = require('../models/mealModel');
+const Meal = require('../models/MealModel');
 
 /**
  * Add a food item to a meal
