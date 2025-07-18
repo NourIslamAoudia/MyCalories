@@ -154,20 +154,24 @@ exports.deleteFoodFromMeal = async (req, res, next) => {
   try {
     const { mealId, itemId } = req.params;
     
-    const meal = await Meal.findById(mealId).populate('items.food');
-    if (!meal) return res.status(404).json({ message: 'Meal not found' });
+    // Solution 1: Utilisation de pull() pour retirer l'item du tableau
+    const meal = await Meal.findByIdAndUpdate(
+      mealId,
+      { $pull: { items: { _id: itemId } } },
+      { new: true }
+    ).populate('items.food');
 
-    const item = meal.items.id(itemId);
-    if (!item) return res.status(404).json({ message: 'Item not found' });
-
-    item.remove();
-    // recalc calories
-    meal.calculateTotalCaloriesFromItems();
-    await meal.save();
+    if (!meal) {
+      return res.status(404).json({ message: 'Meal not found' });
+    }
 
     res.status(204).end();
   } catch (err) {
-    next(err);
+    console.error('Error deleting food item:', err);
+    res.status(500).json({ 
+      message: 'Failed to delete food item',
+      error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 };
 

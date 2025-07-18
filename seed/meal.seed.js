@@ -2,14 +2,14 @@
 // Usage: node seed/meal.seed.js
 require('dotenv').config();
 const mongoose = require('mongoose');
-const Meal = require('../models/mealModel');
+const Meal = require('../models/MealModel');
 
 // MongoDB URI: use .env or fallback to local
 const MONGO_URI = process.env.MONGO_URI;
 
 // IDs provided by user
 const USER_ID = '68790a56a091e0454295dea7';
-const FOOD_ID = '68792d86d8a575095eca5c56';
+const FOOD_ID = '68792d86d8a575095eca5c55';
 
 // Sample meal names
 const mealNames = ['Breakfast', 'Lunch', 'Snack', 'Dinner'];
