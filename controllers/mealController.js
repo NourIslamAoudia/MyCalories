@@ -82,12 +82,12 @@ exports.deleteFoodFromMeal = async (req, res, next) => {
  */
 exports.getMealsPerDay = async (req, res, next) => {
   try {
-    const userId = req.user._id; // assume auth middleware
+    const userId = req.user.id; // assume auth middleware
     const { date } = req.query;
     const day = date ? new Date(date) : new Date();
     const start = new Date(day.setHours(0,0,0,0));
     const end = new Date(day.setHours(23,59,59,999));
-
+    console.log(`Fetching meals for user ${userId} from ${start} to ${end}`);
     const meals = await Meal.find({
       user: userId,
       date: { $gte: start, $lte: end }
