@@ -165,7 +165,7 @@ exports.deleteFoodFromMeal = async (req, res, next) => {
       return res.status(404).json({ message: 'Meal not found' });
     }
 
-    res.status(204).end();
+    res.json(meal);
   } catch (err) {
     console.error('Error deleting food item:', err);
     res.status(500).json({ 
