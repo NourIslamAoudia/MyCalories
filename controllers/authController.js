@@ -1,168 +1,172 @@
 const bcrypt = require('bcryptjs');
-const User = require('../models/UserModel'); // Correction de la casse du nom de fichier
-const { generateToken } = require('../lib/utils'); // Ajustez le chemin selon votre structure
+const User = require('../models/UserModel');
+const { generateToken } = require('../lib/utils');
 
-const authController = { // on a deux fonctions principales: login et register
-    // Fonction de connexion
-    login: async (req, res) => {
-        try {
-            const { username, password } = req.body;
+const authController = {
+  /* ----------------------------------------
+     Connexion (Login)
+     POST /auth/login
+  -----------------------------------------*/
+  login: async (req, res) => {
+    try {
+      const { username, password } = req.body;
 
-            // Validation des données d'entrée
-            if (!username || !password) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Username et password sont requis'
-                });
-            }
+      // Vérification des champs requis
+      if (!username || !password) {
+        return res.status(400).json({
+          success: false,
+          message: 'Username et password sont requis'
+        });
+      }
 
-            // Recherche de l'utilisateur avec le mot de passe inclus
-            const user = await User.findOne({ username }).select('+password');
-            
-            if (!user) {
-                return res.status(401).json({
-                    success: false,
-                    message: 'Identifiants incorrects'
-                });
-            }
+      // Recherche de l'utilisateur
+      const user = await User.findOne({ username }).select('+password');
+      if (!user) {
+        return res.status(401).json({
+          success: false,
+          message: 'Identifiants incorrects'
+        });
+      }
 
-            // Vérification du mot de passe
-            const isPasswordValid = await bcrypt.compare(password, user.password);
-            
-            if (!isPasswordValid) {
-                return res.status(401).json({
-                    success: false,
-                    message: 'Identifiants incorrects'
-                });
-            }
+      // Comparaison du mot de passe
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        return res.status(401).json({
+          success: false,
+          message: 'Identifiants incorrects'
+        });
+      }
 
-            // Génération du token JWT
-            const token = generateToken(user._id);
+      // Génération du token JWT
+      const token = generateToken(user._id);
 
-            // Option 1: Retourner le token dans la réponse JSON
-            res.status(200).json({
-                success: true,
-                message: 'Connexion réussie',
-                token,
-                user: {
-                    id: user._id,
-                    username: user.username
-                }
-            });
-
-        } catch (error) {
-            console.error('Erreur lors de la connexion:', error);
-            res.status(500).json({
-                success: false,
-                message: 'Erreur serveur'
-            });
+      // Réponse JSON avec le token
+      res.status(200).json({
+        success: true,
+        message: 'Connexion réussie',
+        token,
+        user: {
+          id: user._id,
+          username: user.username
         }
-    },
+      });
 
-    // Fonction d'inscription (bonus)
-    register: async (req, res) => {
-        try {
-            const { username, password } = req.body;
-
-            // Validation des données d'entrée
-            if (!username || !password) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Username et password sont requis'
-                });
-            }
-
-            // Vérification si l'utilisateur existe déjà
-            const existingUser = await User.findOne({ username });
-            if (existingUser) {
-                return res.status(409).json({
-                    success: false,
-                    message: 'Cet utilisateur existe déjà'
-                });
-            }
-
-            // Hachage du mot de passe
-            const saltRounds = 12;
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-            // Création du nouvel utilisateur
-            const newUser = new User({
-                username,
-                password: hashedPassword
-            });
-
-            await newUser.save();
-
-            // Génération du token JWT
-            const token = generateToken(newUser._id);
-
-            res.status(201).json({
-                success: true,
-                message: 'Inscription réussie',
-                token,
-                user: {
-                    id: newUser._id,
-                    username: newUser.username
-                }
-            });
-
-        } catch (error) {
-            console.error('Erreur lors de l\'inscription:', error);
-            res.status(500).json({
-                success: false,
-                message: 'Erreur serveur'
-            });
+      // ➕ Alternative cookie :
+      /*
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'Strict',
+        maxAge: 24 * 60 * 60 * 1000
+      }).status(200).json({
+        success: true,
+        message: 'Connexion réussie',
+        user: {
+          id: user._id,
+          username: user.username
         }
-    },
+      });
+      */
 
-    // Option 2: Envoyer le token dans un cookie (décommentez si nécessaire)
-            /*
-            res.cookie('token', token, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production', // HTTPS en production
-                sameSite: 'Strict',
-                maxAge: 24 * 60 * 60 * 1000 // 24 heures
-            });
-
-            res.status(200).json({
-                success: true,
-                message: 'Connexion réussie',
-                user: {
-                    id: user._id,
-                    username: user.username
-                }
-            });
-    // Fonction de déconnexion (pour les cookies)
-    logout: async (req, res) => {
-        try {
-            // Suppression du cookie si utilisé
-            res.clearCookie('token');
-            
-            res.status(200).json({
-                success: true,
-                message: 'Déconnexion réussie'
-            });
-
-        } catch (error) {
-            console.error('Erreur lors de la déconnexion:', error);
-            res.status(500).json({
-                success: false,
-                message: 'Erreur serveur'
-            });
-        }
+    } catch (error) {
+      console.error('Erreur lors de la connexion:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Erreur serveur'
+      });
     }
-    */
-   getAllUsers: async (req, res) => {
-        try {
-            const users = await User.find().select('-password').lean(); // Exclure le mot de passe
-            res.status(200).json(users);
-        } catch (err) {
-            console.error('Erreur lors de la récupération des utilisateurs:', err.message);
-            res.status(500).json({
-                message: 'Erreur serveur lors de la récupération des utilisateurs'
-            });
+  },
+
+  /* ----------------------------------------
+     Inscription (Register)
+     POST /auth/register
+  -----------------------------------------*/
+  register: async (req, res) => {
+    try {
+      const { username, password } = req.body;
+
+      if (!username || !password) {
+        return res.status(400).json({
+          success: false,
+          message: 'Username et password sont requis'
+        });
+      }
+
+      const existingUser = await User.findOne({ username });
+      if (existingUser) {
+        return res.status(409).json({
+          success: false,
+          message: 'Cet utilisateur existe déjà'
+        });
+      }
+
+      const saltRounds = 12;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+      const newUser = new User({
+        username,
+        password: hashedPassword
+      });
+
+      await newUser.save();
+
+      const token = generateToken(newUser._id);
+
+      res.status(201).json({
+        success: true,
+        message: 'Inscription réussie',
+        token,
+        user: {
+          id: newUser._id,
+          username: newUser.username
         }
+      });
+
+    } catch (error) {
+      console.error('Erreur lors de l\'inscription:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Erreur serveur'
+      });
     }
+  },
+
+  /* ----------------------------------------
+     Déconnexion (si cookie utilisé)
+     GET /auth/logout
+  -----------------------------------------*/
+  logout: async (req, res) => {
+    try {
+      res.clearCookie('token'); // Supprime le cookie JWT
+      res.status(200).json({
+        success: true,
+        message: 'Déconnexion réussie'
+      });
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Erreur serveur'
+      });
+    }
+  },
+
+  /* ----------------------------------------
+     Récupération de tous les utilisateurs
+     GET /users
+     (⚠️ à protéger via un middleware admin)
+  -----------------------------------------*/
+  getAllUsers: async (req, res) => {
+    try {
+      const users = await User.find().select('-password').lean();
+      res.status(200).json(users);
+    } catch (err) {
+      console.error('Erreur lors de la récupération des utilisateurs:', err.message);
+      res.status(500).json({
+        message: 'Erreur serveur lors de la récupération des utilisateurs'
+      });
+    }
+  }
 };
 
 module.exports = authController;

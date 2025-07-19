@@ -1,17 +1,26 @@
 const User = require('../models/UserModel');
 
+/**
+ * Helper to extract user from the authenticated request
+ */
 const getUserFromRequest = async (req) => {
   const userId = req.user?.id;
   if (!userId) throw new Error("User ID not found in request");
+
   const user = await User.findById(userId);
   if (!user) throw new Error("User not found");
+
   return user;
 };
 
-// GET /profil
+/**
+ * GET /profil
+ * Get user profile details
+ */
 exports.getProfil = async (req, res) => {
   try {
     const user = await getUserFromRequest(req);
+
     res.json({
       username: user.username,
       age: user.age,
@@ -24,7 +33,10 @@ exports.getProfil = async (req, res) => {
   }
 };
 
-// PUT /profil
+/**
+ * PUT /profil
+ * Update user profile (age, height, weight, sex)
+ */
 exports.updateProfil = async (req, res) => {
   try {
     const user = await getUserFromRequest(req);
@@ -36,18 +48,32 @@ exports.updateProfil = async (req, res) => {
     if (sex !== undefined) user.sex = sex;
 
     await user.save();
-    res.json({ message: 'proil updated successfully', user });
+
+    res.json({
+      message: 'Profile updated successfully',
+      user: {
+        username: user.username,
+        age: user.age,
+        height: user.height,
+        weight: user.weight,
+        sex: user.sex
+      }
+    });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
 
-// GET /profil/bmr
+/**
+ * GET /profil/bmr?activityFactor=1.4
+ * Calculate BMR and daily calorie needs
+ */
 exports.getCalories = async (req, res) => {
   try {
     const user = await getUserFromRequest(req);
     const activityFactor = parseFloat(req.query.activityFactor) || 1.2;
-    const result = user.calculateCalories(activityFactor);//calculateCalories is a method in UserModel
+
+    const result = user.calculateCalories(activityFactor); // This method should exist in UserModel
 
     res.json({
       bmr: result.bmr,
