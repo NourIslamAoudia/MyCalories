@@ -175,7 +175,7 @@ exports.deleteMeal = async (req, res, next) => {
   try {
     const { mealId } = req.params;
 
-    const meal = await Meal.findById(mealId);
+    const meal = await Meal.findById(mealId).populate('items.food');
     if (!meal) {
       return res.status(404).json({ message: 'Meal not found' });
     }
