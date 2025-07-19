@@ -12,9 +12,9 @@ router.put('/', profilController.updateProfil); // Correction de la faute de fra
 router.get('/bmr', profilController.getCalories);
 
 //GET profil/caloriesGoal (affiche l'objectif calorique)
-router.get('caloriesGolal', profilController.getCaloriesGoal);
+router.get('/caloriesGolal', profilController.getCaloriesGoal);
 
 // PUT profil/caloriesGoal (met à jour l'objectif calorique)
-router.put('caloriesGolal', profilController.updateCaloriesGoal);
+router.put('/caloriesGolal', profilController.updateCaloriesGoal);
 
 module.exports = router;
