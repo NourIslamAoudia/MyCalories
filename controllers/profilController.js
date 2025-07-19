@@ -85,3 +85,30 @@ exports.getCalories = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+exports.getCaloriesGoal = async (req, res) => {
+  try {
+    const user = await getUserFromRequest(req);
+    res.json({ caloriesGoal: user.caloriesGoal });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+}
+
+exports.updateCaloriesGoal = async (req, res) => {
+  try {
+    const user = await getUserFromRequest(req);
+    const { caloriesGoal } = req.body;
+
+    if (caloriesGoal < 0) {
+      return res.status(400).json({ error: 'Calories goal must be positive' });
+    }
+
+    user.caloriesGoal = caloriesGoal;
+    await user.save();
+
+    res.json({ message: 'Calories goal updated successfully', caloriesGoal: user.caloriesGoal });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+}

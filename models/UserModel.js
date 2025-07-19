@@ -37,8 +37,12 @@ const userSchema = new Schema({
       message: 'Sexe doit être "male" ou "female"'
     },
     default: 'male'
-  }
-}, {
+  },
+  caloriesGoal: {
+    type: Number,
+    default: 2000,
+    min: [0, 'Objectif calorique doit être positif']
+}},{
   versionKey: '__v'
 });
 
