@@ -196,7 +196,7 @@ const healthyFoods = [
     proteinPer100g: 20,
     carbsPer100g: 0,
     fatPer100g: 13,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/39/Salmo_salar.jpg'
+    photoUrl: 'https://shop.legalseafoods.com/cdn/shop/files/SalmonNov24.jpg?v=1731080285&width=1946.jpg'
   },
   {
     name: 'Lentils',
@@ -205,7 +205,7 @@ const healthyFoods = [
     proteinPer100g: 9,
     carbsPer100g: 20,
     fatPer100g: 0.4,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Lentils_bowl.jpg'
+    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/3_types_of_lentil.png/1200px-3_types_of_lentil.png'
   },
   {
     name: 'Chicken Breast',
@@ -214,7 +214,7 @@ const healthyFoods = [
     proteinPer100g: 31,
     carbsPer100g: 0,
     fatPer100g: 3.6,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Chicken_breast.jpg'
+    photoUrl: 'https://chicagosteakguy.com/cdn/shop/products/AdobeStock_83103702.jpg?v=1595704519.jpg'
   },
   {
     name: 'Tofu',
@@ -223,7 +223,7 @@ const healthyFoods = [
     proteinPer100g: 8,
     carbsPer100g: 1.9,
     fatPer100g: 4.8,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Nasoya_Tofu.jpg'
+    photoUrl: 'https://tyberrymuch.com/wp-content/uploads/2023/01/types-of-tofu-cubed-index-800x800.jpg'
   },
   {
     name: 'Eggs',
@@ -232,7 +232,7 @@ const healthyFoods = [
     proteinPer100g: 13,
     carbsPer100g: 1.1,
     fatPer100g: 11,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Eggs-freshly-laid.jpg/800px-Eggs-freshly-laid.jpg'
+    photoUrl: 'https://www.shutterstock.com/image-photo/front-view-brown-chicken-eggs-600nw-2478886423.jpg'
   },
   {
     name: 'Cod Fish',
@@ -241,7 +241,7 @@ const healthyFoods = [
     proteinPer100g: 18,
     carbsPer100g: 0,
     fatPer100g: 0.7,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Atlantic_cod_fishing_port_of_Audierne.jpg/800px-Atlantic_cod_fishing_port_of_Audierne.jpg'
+    photoUrl: 'https://www.seaangler.co.uk/wp-content/uploads/sites/3/cod-2-1.jpg'
   },
   {
     name: 'Greek Yogurt (0% fat)',
@@ -250,7 +250,7 @@ const healthyFoods = [
     proteinPer100g: 10,
     carbsPer100g: 3.6,
     fatPer100g: 0.4,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Yogurt_%281%29.jpg'
+    photoUrl: 'https://cdn.mafrservices.com/sys-master-root/hdd/h2c/63422372839454/597424_main.jpg'
   },
   {
     name: 'Turkey Breast',
@@ -259,7 +259,7 @@ const healthyFoods = [
     proteinPer100g: 30,
     carbsPer100g: 0,
     fatPer100g: 2.1,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Raw_turkey_breast_fillets.jpg/800px-Raw_turkey_breast_fillets.jpg'
+    photoUrl: 'https://sweetstuff.in/wp-content/uploads/2022/11/19.1Raw-Butterball-Turkey-Breast.jpg'
   },
   {
     name: 'Shrimp',
@@ -268,7 +268,7 @@ const healthyFoods = [
     proteinPer100g: 20,
     carbsPer100g: 0.3,
     fatPer100g: 0.3,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Shrimp_2017.jpg/800px-Shrimp_2017.jpg'
+    photoUrl: 'https://www.regalisfoods.com/cdn/shop/files/AkaEbiTrio.jpg?v=1743374062.jpg'
   },
   {
     name: 'Lean Beef',
@@ -277,7 +277,7 @@ const healthyFoods = [
     proteinPer100g: 26,
     carbsPer100g: 0,
     fatPer100g: 15,
-    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Beef_steak_with_rosemary.jpg/800px-Beef_steak_with_rosemary.jpg'
+    photoUrl: 'https://cdn11.bigcommerce.com/s-gch1s0t3lu/images/stencil/1280x1280/products/143/485/beef-steak-lean__07603.1642087520.jpg'
   },
 
   // --- Grains (10 items) ---
@@ -738,6 +738,142 @@ const healthyFoods = [
     carbsPer100g: 0,
     fatPer100g: 100,
     photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Sesame_oil.jpg/800px-Sesame_oil.jpg'
+  }, 
+  // --- Traditional Algerian Food (10 items) ---
+  {
+    name: 'Makroud',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 450,
+    proteinPer100g: 5,
+    carbsPer100g: 60,
+    fatPer100g: 20,
+    photoUrl: 'https://www.masmoudigourmet.com/cdn/shop/files/MakroudKairouan700g36Pcs2.png?v=1739172892&width=2048.jpg'
+  },
+  {
+    name: 'Kalb El Louz',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 400,
+    proteinPer100g: 4,
+    carbsPer100g: 65,
+    fatPer100g: 15,
+    photoUrl: 'https://ileauxepices.com/blog/wp-content/uploads/2014/07/kalb-el-louz-chamia.jpg'
+  },
+  {
+    name: 'Bourek',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 280,
+    proteinPer100g: 9,
+    carbsPer100g: 18,
+    fatPer100g: 18,
+    photoUrl: 'https://www.auxdelicesdupalais.net/wp-content/uploads/2016/06/Borek-turc-%C3%A0-la-viande-hach%C3%A9eDSC05362.jpg'
+  },
+  {
+    name: 'Lham Lahlou',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 200,
+    proteinPer100g: 6,
+    carbsPer100g: 30,
+    fatPer100g: 6,
+    photoUrl: 'https://www.amourdecuisine.fr/wp-content/uploads/2021/04/tajine-dagneau-aux-pruneaux.jpg'
+  },
+  {
+    name: 'Harira',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 90,
+    proteinPer100g: 6,
+    carbsPer100g: 10,
+    fatPer100g: 3,
+    photoUrl: 'https://resize.elle.fr/original/var/plain_site/storage/images/elle-a-table/recettes-de-cuisine/soupe-harira-2661706/46143642-1-fre-FR/Soupe-harira.jpg'
+  },
+  {
+    name: 'Tamina',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 480,
+    proteinPer100g: 6,
+    carbsPer100g: 45,
+    fatPer100g: 30,
+    photoUrl: 'https://i.ytimg.com/vi/D_gscgku0R8/maxresdefault.jpg'
+  },
+  {
+    name: 'Hmiss',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 60,
+    proteinPer100g: 1.5,
+    carbsPer100g: 5,
+    fatPer100g: 3.5,
+    photoUrl: 'https://i.pinimg.com/736x/0f/52/0c/0f520c928d53025130161441f96cefd4.jpg'
+  },
+  {
+    name: 'Karentika',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 220,
+    proteinPer100g: 8,
+    carbsPer100g: 22,
+    fatPer100g: 10,
+    photoUrl: 'https://i.ytimg.com/vi/lwz5T-W84HU/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBjMVQTBq7zpqfW92RyzQcLIwJsOA.jpg'
+  },
+  {
+    name: 'Couscous',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 112,
+    proteinPer100g: 3.8,
+    carbsPer100g: 23,
+    fatPer100g: 0.2,
+    photoUrl: 'https://www.auxdelicesdupalais.net/wp-content/uploads/2016/10/Couscous-royal-expressDSC04914.jpg'
+  },
+  {
+    name: 'Chakchouka',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 70,
+    proteinPer100g: 2,
+    carbsPer100g: 5.5,
+    fatPer100g: 4.5,
+    photoUrl: 'https://img.cuisineaz.com/660x660/2016/07/07/i39789-chakchouka-algerienne.jpeg'
+  },
+  {
+    name: 'Rechta',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 120,
+    proteinPer100g: 4,
+    carbsPer100g: 20,
+    fatPer100g: 2.5,
+    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Rechtaalgeroise.jpg'
+  },
+  {
+    name: 'Mhajeb',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 270,
+    proteinPer100g: 6,
+    carbsPer100g: 38,
+    fatPer100g: 10,
+    photoUrl: 'https://djoudjousemetauxfourneaux.wordpress.com/wp-content/uploads/2015/09/699301.jpg'
+  },
+  {
+    name: 'Chorba Frik',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 80,
+    proteinPer100g: 5,
+    carbsPer100g: 7,
+    fatPer100g: 3,
+    photoUrl: 'https://kherdja.com/wp-content/uploads/2025/03/Chorba-frik-photo-2.jpg'
+  },
+  {
+    name: 'Tajine Zitoun',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 140,
+    proteinPer100g: 10,
+    carbsPer100g: 3,
+    fatPer100g: 9,
+    photoUrl: 'https://i.ytimg.com/vi/NA95-vTtsbs/maxresdefault.jpg'
+  },
+  {
+    name: 'Dolma',
+    category: 'Traditional Algerian Food',
+    caloriesPer100g: 100,
+    proteinPer100g: 5,
+    carbsPer100g: 6,
+    fatPer100g: 6,
+    photoUrl: 'https://i.ytimg.com/vi/BlUjRDkTNmQ/maxresdefault.jpg'
   }
 ];
 
