@@ -191,43 +191,59 @@ exports.deleteMeal = async (req, res, next) => {
  * Delete a food item from a meal
  * DELETE /meals/:mealId/items/:itemId
  */
+
 exports.deleteFoodFromMeal = async (req, res, next) => {
-  try {
-    const { mealId, itemId } = req.params;
+    try {
+        const { mealId, itemId } = req.params;
 
-    const meal = await Meal.findById(mealId);
-    if (!meal) {
-      return res.status(404).json({ message: 'Meal not found' });
+        // Find meal and populate food data
+        const meal = await Meal.findById(mealId).populate('items.food');
+        if (!meal) {
+            return res.status(404).json({ message: 'Meal not found' });
+        }
+
+        console.log(`Deleting item ${itemId} from meal ${mealId}`);
+        
+        // Check if the item exists before trying to remove it
+        const itemExists = meal.items.id(itemId);
+        if (!itemExists) {
+            return res.status(404).json({ message: 'Item not found' });
+        }
+
+        console.log(`Found item: ${itemExists}`);
+
+        // Remove the item using pull
+        meal.items.pull(itemId);
+
+        // Check if meal is empty after removal
+        if (meal.items.length === 0) {
+            await Meal.findByIdAndDelete(mealId);
+            return res.status(204).end(); // No Content
+        }
+
+        // Recalculate totals after removing the item (synchronous method)
+        meal.calculateTotalCaloriesFromItems();
+        
+        // Save the updated meal
+        await meal.save();
+
+        // Populate the meal again for the response
+        await meal.populate('items.food');
+
+        res.status(200).json({
+            success: true,
+            meal,
+            message: 'Food item deleted successfully',
+        });
+
+    } catch (err) {
+        console.error('Error deleting food item:', err);
+        res.status(500).json({
+            message: 'Failed to delete food item',
+            error: process.env.NODE_ENV === 'development' ? err.message : undefined
+        });
     }
-
-    const item = meal.items.id(itemId);
-    if (!item) {
-      return res.status(404).json({ message: 'Item not found' });
-    }
-
-    item.remove();
-    meal.calculateTotalCaloriesFromItems();
-    await meal.save();
-
-    if (meal.items.length === 0) {
-      await Meal.findByIdAndDelete(mealId);
-      return res.status(204).end(); // No Content
-    }
-
-    res.status(200).json({
-      success: true,
-      meal,
-      message: 'Food item deleted successfully',
-    });
-  } catch (err) {
-    console.error('Error deleting food item:', err);
-    res.status(500).json({
-      message: 'Failed to delete food item',
-      error: process.env.NODE_ENV === 'development' ? err.message : undefined
-    });
-  }
 };
-
 
 /* ------------------------------------------
    ITEM MANAGEMENT
