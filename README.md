@@ -551,7 +551,6 @@ app.get('/health', (req, res) => {
 
 ## 📞 Support and Contact
 
-- **API Status:** [https://my-calories-two.vercel.app/health](https://my-calories-two.vercel.app/health)
 - **Documentation:** This README
 - **Issues:** GitHub Issues
 

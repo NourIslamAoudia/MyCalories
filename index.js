@@ -38,7 +38,7 @@ app.use('/profil', ProtectRoute, profilRouter);
 
 // Route racine
 app.get('/', (req, res) => {
-  res.send('Bienvenue sur l\'API MyCalories');
+  res.send('Bienvenue sur l\'API NutriTrack');
 });
 
 // Gestion des erreurs 404
