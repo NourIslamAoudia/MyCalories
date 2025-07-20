@@ -1,3 +1,4 @@
+// middleware/auth-middleware.js
 const jwt = require('jsonwebtoken');
 const User = require('../models/UserModel');
 
@@ -19,7 +20,7 @@ const ProtectRoute = async (req, res, next) => {
     // 2. Vérification et décodage du token JWT
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // 3. Vérification de l'existence de l'utilisateur
+    // 3. Vérification de l'existence de l'utilisateur et récupération de ses données
     const user = await User.findById(decoded.id);
     if (!user) {
       return res.status(401).json({
@@ -28,13 +29,12 @@ const ProtectRoute = async (req, res, next) => {
       });
     }
 
-    // 4. Attacher les données utilisateur à la requête
+    // 4. Attacher les données utilisateur à la requête tres important , ses données seront utilisées dans les contrôleurs suivants
     req.user = {
-      id: user._id,
-      username: user.username,
+      id: user._id
     };
 
-    // 5. Poursuivre vers le middleware ou contrôleur suivant
+    // 5. Poursuivre vers le middleware ou contrôleur suivant, en peut utiliser req.user.id pour accéder à l'ID de l'utilisateur authentifié
     next();
   } catch (error) {
     console.error('Erreur d\'authentification:', error);

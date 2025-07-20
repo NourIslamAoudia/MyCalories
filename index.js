@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-
+require('./lib/passport');
 const connectDB = require('./lib/db');
 const ProtectRoute = require('./middleware/auth-middleware');
 

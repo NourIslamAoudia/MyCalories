@@ -1,3 +1,4 @@
+//controllers/authController.js
 const bcrypt = require('bcryptjs');
 const User = require('../models/UserModel');
 const { generateToken } = require('../lib/utils');
@@ -169,4 +170,18 @@ const authController = {
   }
 };
 
-module.exports = authController;
+async function googleLoginCallback(req, res) {
+  const user = req.user;
+  // Send JWT and user info in JSON response
+  return res.status(200).json({
+    success: true,
+    message: 'Connexion via Google réussie',
+    token: user.jwtToken,
+    user: { id: user._id, username: user.username, email: user.email }
+  });
+}
+
+module.exports = {
+  ...authController,
+  googleLoginCallback,
+};

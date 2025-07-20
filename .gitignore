@@ -3,3 +3,4 @@ node_modules/
 generat*
 check-url.py
 food.htmlAPIs_documentation.txt
+meal-test.seed.js
