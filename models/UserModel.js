@@ -12,8 +12,13 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    required: [true, 'Mot de passe requis'],
-    select: false
+    validate: {
+      validator: function (value) {
+        // Requis si pas d'authentification Google
+        return this.googleId || value;
+      },
+      message: 'Password requis sauf pour Google auth'
+    }
   },
   height: {
     type: Number,

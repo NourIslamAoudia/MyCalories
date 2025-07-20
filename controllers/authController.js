@@ -171,16 +171,21 @@ const authController = {
 };
 
 async function googleLoginCallback(req, res) {
-  const user = req.user;
-  // Send JWT and user info in JSON response
-  return res.status(200).json({
-    success: true,
-    message: 'Connexion via Google réussie',
-    token: user.jwtToken,
-    user: { id: user._id, username: user.username, email: user.email }
-  });
+  try {
+    const user = req.user;
+    
+    // Set token in cookie or send in response
+    res.cookie('token', user.token, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000 // 1 day
+    });
+    
+    res.redirect('/profile');
+  } catch (error) {
+    console.error('Google login callback error:', error);
+    res.redirect('/auth/login?error=google_auth_failed');
+  }
 }
-
 module.exports = {
   ...authController,
   googleLoginCallback,

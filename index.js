@@ -13,6 +13,12 @@ const profilRouter = require('./routers/profil');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Dans index.js
+const passport = require('passport');
+require('./lib/passport')(); // Initialisation Passport
+app.use(passport.initialize());
+
+
 // Connexion à la base de données
 connectDB().catch(err => {
   console.error('❌ Échec de connexion à la base de données:', err);
