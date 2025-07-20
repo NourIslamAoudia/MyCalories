@@ -1,69 +1,94 @@
-// seed/meal.seed.js
-// Usage: node seed/meal.seed.js
-require('dotenv').config();
+// meal.seed.js
 const mongoose = require('mongoose');
 const Meal = require('../models/MealModel');
+const Food = require('../models/FoodModel');
+require('dotenv').config();
 
-// MongoDB URI: use .env or fallback to local
-const MONGO_URI = process.env.MONGO_URI;
-
-// IDs provided by user
-const USER_ID = '68790a56a091e0454295dea7';
-const FOOD_ID = '68792d86d8a575095eca5c55';
-
-// Sample meal names
-const mealNames = ['Breakfast', 'Lunch', 'Snack', 'Dinner'];
-
-// Generate 3 items referencing same FOOD_ID
-const generateItems = () => [
-  { food: FOOD_ID, amount: 100 + Math.floor(Math.random() * 100) },
-  { food: FOOD_ID, amount: 100 + Math.floor(Math.random() * 100) },
-  { food: FOOD_ID, amount: 100 + Math.floor(Math.random() * 100) }
+const userId = '687ba970a1fe685b1e30d5cb';
+const foodIds = [
+  '687be464eb8c18a58214d851',
+  '687be464eb8c18a58214d855',
+  '687be464eb8c18a58214d86b',
+  '687be464eb8c18a58214d86d',
+  '687be464eb8c18a58214d8a4',
+  '687be464eb8c18a58214d8ae',
+  '687be464eb8c18a58214d8a9',
+  '687be464eb8c18a58214d85b',
+  '687be464eb8c18a58214d85c',
+  '687be464eb8c18a58214d86c',
+  '687be464eb8c18a58214d85e'
 ];
+
+const startDate = new Date('2025-03-01');
+const endDate = new Date('2025-07-31');
 
 async function seedMeals() {
   try {
-    console.log('🔌 Connecting to MongoDB...');
-    await mongoose.connect(MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 5000
-    });
-    console.log('✅ MongoDB connected:', MONGO_URI);
+    // Connexion à MongoDB
+        await mongoose.connect(process.env.MONGO_URI, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+          serverSelectionTimeoutMS: 5000
+        });
+        console.log('✅ MongoDB connecté pour le seeding');
 
-    // Remove existing meals for this user
-    const delRes = await Meal.deleteMany({ user: USER_ID });
-    console.log(`♻️ Removed ${delRes.deletedCount} existing meals for user ${USER_ID}`);
+    // Charger tous les aliments
+    const foods = await Food.find({ _id: { $in: foodIds } });
+    if (foods.length !== foodIds.length) {
+      console.error('❌ Certains aliments n’ont pas été trouvés dans la base.');
+      process.exit(1);
+    }
 
-    // Build new meals
-    const mealsToInsert = mealNames.map(name => ({
-      name,
-      user: USER_ID,
-      items: generateItems(),
-      calories: 0,
-      proteinCalories: 0,
-      carbCalories: 0,
-      fatCalories: 0
-    }));
+    const meals = [];
+    let currentDate = new Date(startDate);
 
-    // Insert and calculate via pre-validate hook
-    const created = await Meal.create(mealsToInsert);
-    console.log(`🌱 Created ${created.length} meals:`);
-    created.forEach(m => console.log(`   - ${m.name} (ID: ${m._id})`));
+    while (currentDate <= endDate) {
+      for (let j = 0; j < 4; j++) { // 4 repas par jour
+        // Sélectionner 4 aliments uniques aléatoirement
+        const shuffledFoods = [...foods].sort(() => 0.5 - Math.random());
+        const selectedFoods = shuffledFoods.slice(0, 4);
 
+        const items = selectedFoods.map(food => ({
+          food: food._id,
+          amount: Math.floor(Math.random() * 150) + 50 // 50g à 200g
+        }));
+
+        const meal = new Meal({
+          name: `Meal ${j + 1} - ${currentDate.toISOString().split('T')[0]}`,
+          user: userId,
+          items,
+          calories: 0,
+          proteinCalories: 0,
+          carbCalories: 0,
+          fatCalories: 0,
+          date: new Date(currentDate)
+        });
+
+        // Injecter les objets food pour le calcul
+        meal.items.forEach((i, idx) => {
+          i.food = selectedFoods[idx]; // réinjecter l'objet food pour chaque item
+        });
+
+        meal.calculateTotalCaloriesFromItems();
+
+        // Remettre les IDs pour l'enregistrement en DB
+        meal.items.forEach(i => {
+          i.food = i.food._id;
+        });
+
+        meals.push(meal);
+      }
+
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    await Meal.insertMany(meals);
+    console.log('✅ Seeded meals successfully.');
+    process.exit();
   } catch (err) {
-    console.error('❌ Error seeding meals:', err.message);
+    console.error('❌ Error while seeding meals:', err);
     process.exit(1);
-  } finally {
-    await mongoose.connection.close();
-    console.log('🔌 MongoDB connection closed');
   }
 }
 
-// Exécution conditionnelle
-if (require.main === module) {
-  seedMeals().then(() => {
-    console.log('✨ Seeding terminé avec succès !');
-    process.exit(0);
-  });
-}
+seedMeals();

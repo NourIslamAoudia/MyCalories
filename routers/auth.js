@@ -1,4 +1,4 @@
-// Exemple dans routers/auth.js
+// routers/auth.js
 const express = require('express');
 const passport = require('passport');
 const authController = require('../controllers/authController');

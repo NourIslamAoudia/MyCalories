@@ -1,3 +1,4 @@
+// index.js
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -27,7 +28,6 @@ connectDB().catch(err => {
 
 // Middlewares
 app.use(cors());
-
 app.use(express.json());
 
 // Routes

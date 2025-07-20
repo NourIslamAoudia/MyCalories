@@ -1,3 +1,4 @@
+// controllers/profilController.js
 const User = require('../models/UserModel');
 
 /**
