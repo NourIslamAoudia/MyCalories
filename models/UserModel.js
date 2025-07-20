@@ -12,13 +12,32 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
+    required: function() {
+      return !this.googleId; // Requis seulement si pas d'authentification Google
+    },
+    minlength: [8, 'Minimum 8 caractères'],
+    select: false // Ne pas retourner le password par défaut
+  },
+  googleId: {
+    type: String,
+    unique: true,
+    sparse: true // Permet plusieurs documents sans googleId
+  },
+  email: {
+    type: String,
+    unique: true,
+    sparse: true,
     validate: {
-      validator: function (value) {
-        // Requis si pas d'authentification Google
-        return this.googleId || value;
+      validator: function(v) {
+        return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v);
       },
-      message: 'Password requis sauf pour Google auth'
+      message: props => `${props.value} n'est pas un email valide!`
     }
+  },
+  avatar: String,
+  isVerified: {
+    type: Boolean,
+    default: false
   },
   height: {
     type: Number,
@@ -38,8 +57,8 @@ const userSchema = new Schema({
   sex: {
     type: String,
     enum: {
-      values: ['male', 'female'],
-      message: 'Sexe doit être "male" ou "female"'
+      values: ['male', 'female', 'other'],
+      message: 'Sexe doit être "male", "female" ou "other"'
     },
     default: 'male'
   },
@@ -47,8 +66,12 @@ const userSchema = new Schema({
     type: Number,
     default: 2000,
     min: [0, 'Objectif calorique doit être positif']
-}},{
-  versionKey: '__v'
+  }
+}, {
+  timestamps: true, // Ajoute createdAt et updatedAt
+  versionKey: '__v',
+  toJSON: { virtuals: true }, // Pour inclure les virtuals dans les réponses JSON
+  toObject: { virtuals: true }
 });
 
 // Methode pour valider avant appel manuel si besoin
